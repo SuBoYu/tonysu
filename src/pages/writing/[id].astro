@@ -1,0 +1,63 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import ArticleLayout from "../../layouts/ArticleLayout.astro";
+import { getWritingPosts } from "../../utils/content";
+import { getReadingTime } from "../../utils/readingTime";
+
+export async function getStaticPaths() {
+  const posts = await getWritingPosts();
+
+  return posts.map((post, index) => {
+    const newerPost = posts[index - 1];
+    const olderPost = posts[index + 1];
+
+    return {
+      params: { id: post.id },
+      props: {
+        post,
+        newerPost: newerPost
+          ? {
+              href: `/writing/${newerPost.id}`,
+              title: newerPost.data.title,
+            }
+          : undefined,
+        olderPost: olderPost
+          ? {
+              href: `/writing/${olderPost.id}`,
+              title: olderPost.data.title,
+            }
+          : undefined,
+      },
+    };
+  });
+}
+
+interface Props {
+  post: CollectionEntry<"writing">;
+  newerPost?: {
+    href: string;
+    title: string;
+  };
+  olderPost?: {
+    href: string;
+    title: string;
+  };
+}
+
+const { post, newerPost, olderPost } = Astro.props;
+const { Content } = await render(post);
+const readingMinutes = getReadingTime(post.body ?? "");
+---
+
+<ArticleLayout
+  title={post.data.title}
+  description={post.data.description}
+  publishedAt={post.data.publishedAt}
+  updatedAt={post.data.updatedAt}
+  tags={post.data.tags}
+  {readingMinutes}
+  {newerPost}
+  {olderPost}
+>
+  <Content />
+</ArticleLayout>

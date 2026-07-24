@@ -1,0 +1,51 @@
+---
+import PostItem from "../components/PostItem.astro";
+import ProjectItem from "../components/ProjectItem.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getProjects, getWritingPosts } from "../utils/content";
+
+const latestPosts = (await getWritingPosts()).slice(0, 3);
+const featuredProjects = (await getProjects())
+  .filter((project) => project.data.featured)
+  .slice(0, 3);
+---
+
+<BaseLayout>
+  <div class="page page--wide">
+    <section aria-labelledby="intro-heading">
+      <p class="eyebrow">Software Engineer · Silicon Valley</p>
+      <h1 id="intro-heading">Building useful systems and ideas.</h1>
+      <p class="lede">
+        I’m Tony. I build software, explore AI, and document the journey.
+      </p>
+      <nav aria-label="Explore the site">
+        <ul class="inline-links">
+          <li><a href="/about">About</a></li>
+          <li><a href="/projects">Projects</a></li>
+          <li><a href="/writing">Writing</a></li>
+          <li><a href="/resume">Resume</a></li>
+        </ul>
+      </nav>
+    </section>
+
+    <section class="home-section" aria-labelledby="writing-heading">
+      <div class="section-heading">
+        <h2 id="writing-heading">Latest writing</h2>
+        <a href="/writing">View all</a>
+      </div>
+      <ol class="entry-list">
+        {latestPosts.map((post) => <PostItem post={post} />)}
+      </ol>
+    </section>
+
+    <section class="home-section" aria-labelledby="projects-heading">
+      <div class="section-heading">
+        <h2 id="projects-heading">Selected projects</h2>
+        <a href="/projects">View all</a>
+      </div>
+      <ul class="entry-list">
+        {featuredProjects.map((project) => <ProjectItem project={project} />)}
+      </ul>
+    </section>
+  </div>
+</BaseLayout>
