@@ -1,0 +1,99 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import { formatDate } from "../utils/formatDate";
+
+interface Props {
+  title: string;
+  description: string;
+  publishedAt: Date;
+  updatedAt?: Date;
+  tags?: string[];
+  readingMinutes: number;
+  newerPost?: {
+    href: string;
+    title: string;
+  };
+  olderPost?: {
+    href: string;
+    title: string;
+  };
+}
+
+const {
+  title,
+  description,
+  publishedAt,
+  updatedAt,
+  tags = [],
+  readingMinutes,
+  newerPost,
+  olderPost,
+} = Astro.props;
+---
+
+<BaseLayout
+  {title}
+  {description}
+  type="article"
+  {publishedAt}
+  {updatedAt}
+  {tags}
+>
+  <article class="page article">
+    <header class="article-header">
+      <a class="back-link" href="/writing">← Back to writing</a>
+      <h1>{title}</h1>
+      <p class="lede">{description}</p>
+      <div class="article-meta">
+        <p>
+          Published <time datetime={publishedAt.toISOString()}>
+            {formatDate(publishedAt)}
+          </time>
+        </p>
+        <p>{readingMinutes} min read</p>
+        {
+          updatedAt && (
+            <p>
+              Updated{" "}
+              <time datetime={updatedAt.toISOString()}>
+                {formatDate(updatedAt)}
+              </time>
+            </p>
+          )
+        }
+      </div>
+      {
+        tags.length > 0 && (
+          <ul class="tag-list" aria-label="Topics">
+            {tags.map((tag) => (
+              <li>{tag}</li>
+            ))}
+          </ul>
+        )
+      }
+    </header>
+    <div class="prose">
+      <slot />
+    </div>
+    {
+      (newerPost || olderPost) && (
+        <nav class="article-navigation" aria-label="Article navigation">
+          {newerPost ? (
+            <a href={newerPost.href}>
+              <span>Newer</span>
+              {newerPost.title}
+            </a>
+          ) : (
+            <span />
+          )}
+          {olderPost && (
+            <a href={olderPost.href}>
+              <span>Older</span>
+              {olderPost.title}
+            </a>
+          )}
+        </nav>
+      )
+    }
+  </article>
+</BaseLayout>

@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostItem from "../../components/PostItem.astro";
+import { getWritingPosts } from "../../utils/content";
+
+const posts = await getWritingPosts();
+const postsByYear = Map.groupBy(posts, (post) =>
+  post.data.publishedAt.getUTCFullYear(),
+);
+---
+
+<BaseLayout
+  title="Writing"
+  description="Notes by Tony Su on software engineering, AI, startups, and life."
+>
+  <div class="page">
+    <p class="eyebrow">Writing</p>
+    <h1>Notes and essays.</h1>
+    <p class="lede">
+      Writing about backend engineering, distributed systems, AI, and the
+      lessons that emerge while building.
+    </p>
+
+    <div class="year-groups">
+      {
+        Array.from(postsByYear).map(([year, yearPosts]) => (
+          <section class="year-group" aria-labelledby={`year-${year}`}>
+            <h2 id={`year-${year}`}>{year}</h2>
+            <ol class="entry-list">
+              {yearPosts.map((post) => (
+                <PostItem post={post} showDraft={import.meta.env.DEV} />
+              ))}
+            </ol>
+          </section>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>

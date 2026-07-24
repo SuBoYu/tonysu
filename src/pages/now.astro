@@ -1,0 +1,56 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { formatDate } from "../utils/formatDate";
+
+const updatedAt = new Date("2026-07-23T00:00:00Z");
+---
+
+<BaseLayout
+  title="Now"
+  description="What Tony Su is building, learning, playing, and thinking about now."
+>
+  <article class="page">
+    <p class="eyebrow">Now</p>
+    <h1>What I’m doing now.</h1>
+    <p class="lede">
+      A snapshot of the projects, questions, and activities holding my attention
+      right now.
+    </p>
+    <p class="updated-date">
+      Last updated <time datetime={updatedAt.toISOString()}>
+        {formatDate(updatedAt)}
+      </time>
+    </p>
+
+    <div class="now-grid">
+      <section aria-labelledby="building-heading">
+        <h2 id="building-heading">Building</h2>
+        <ul class="plain-list">
+          <li>Personal website</li>
+          <li>Small AI experiments</li>
+        </ul>
+      </section>
+      <section aria-labelledby="learning-heading">
+        <h2 id="learning-heading">Learning</h2>
+        <ul class="plain-list">
+          <li>AI agents</li>
+          <li>Distributed systems</li>
+        </ul>
+      </section>
+      <section aria-labelledby="playing-heading">
+        <h2 id="playing-heading">Playing</h2>
+        <ul class="plain-list">
+          <li>Drums</li>
+          <li>Tennis</li>
+        </ul>
+      </section>
+      <section aria-labelledby="thinking-heading">
+        <h2 id="thinking-heading">Thinking about</h2>
+        <ul class="plain-list">
+          <li>Startup ideas</li>
+          <li>Personal knowledge systems</li>
+        </ul>
+      </section>
+    </div>
+  </article>
+</BaseLayout>

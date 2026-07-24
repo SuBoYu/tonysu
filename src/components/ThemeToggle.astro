@@ -1,0 +1,82 @@
+<button
+  class="theme-toggle"
+  type="button"
+  data-theme-toggle
+  title="Activate to use light theme"
+>
+  <span aria-hidden="true">Theme:</span>
+  <span data-theme-label>System</span>
+</button>
+
+<script>
+  type ThemePreference = "system" | "light" | "dark";
+
+  const storageKey = "theme-preference";
+  const preferences: ThemePreference[] = ["system", "light", "dark"];
+  const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+  function currentPreference(): ThemePreference {
+    const preference = document.documentElement.dataset.themePreference;
+    return preferences.includes(preference as ThemePreference)
+      ? (preference as ThemePreference)
+      : "system";
+  }
+
+  function resolvedTheme(preference: ThemePreference): "light" | "dark" {
+    return preference === "system"
+      ? mediaQuery.matches
+        ? "dark"
+        : "light"
+      : preference;
+  }
+
+  function applyPreference(preference: ThemePreference) {
+    const root = document.documentElement;
+    root.dataset.themePreference = preference;
+    root.dataset.theme = resolvedTheme(preference);
+
+    document
+      .querySelectorAll<HTMLElement>("[data-theme-toggle]")
+      .forEach((button) => {
+        const nextPreference =
+          preferences[
+            (preferences.indexOf(preference) + 1) % preferences.length
+          ];
+        const label = button.querySelector<HTMLElement>("[data-theme-label]");
+
+        if (label) {
+          label.textContent = preference[0].toUpperCase() + preference.slice(1);
+        }
+
+        button.setAttribute("title", `Activate to use ${nextPreference} theme`);
+      });
+  }
+
+  document
+    .querySelectorAll<HTMLElement>("[data-theme-toggle]")
+    .forEach((button) => {
+      button.addEventListener("click", () => {
+        const preference = currentPreference();
+        const nextPreference =
+          preferences[
+            (preferences.indexOf(preference) + 1) % preferences.length
+          ];
+
+        if (nextPreference === "system") {
+          localStorage.removeItem(storageKey);
+        } else {
+          localStorage.setItem(storageKey, nextPreference);
+        }
+
+        applyPreference(nextPreference);
+      });
+    });
+
+  mediaQuery.addEventListener("change", () => {
+    if (currentPreference() === "system") {
+      applyPreference("system");
+    }
+  });
+
+  applyPreference(currentPreference());
+</script>

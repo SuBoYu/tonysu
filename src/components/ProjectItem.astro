@@ -1,0 +1,29 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+}
+
+const { project } = Astro.props;
+const status = project.data.status
+  ? project.data.status[0].toUpperCase() + project.data.status.slice(1)
+  : undefined;
+---
+
+<li class="project-item">
+  <div>
+    <h3><a href={`/projects/${project.id}`}>{project.data.title}</a></h3>
+    <p>{project.data.description}</p>
+    {
+      project.data.technologies.length > 0 && (
+        <ul class="technology-list" aria-label="Technologies">
+          {project.data.technologies.map((technology) => (
+            <li>{technology}</li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+  {status && <span class="status">{status}</span>}
+</li>

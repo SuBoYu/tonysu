@@ -1,0 +1,232 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Resume"
+  description="Tony Su's software engineering experience, education, and technical skills."
+>
+  <article class="page">
+    <p class="eyebrow">Resume</p>
+    <h1>Tony Su</h1>
+    <p class="lede">
+      Software engineer building backend systems, data infrastructure, and AI
+      products.
+    </p>
+    <ul class="resume-contact">
+      <li>SF Bay Area, CA</li>
+      <li><a href="mailto:boyusu18@outlook.com">boyusu18@outlook.com</a></li>
+      <li><a href="tel:+14479027657">(447) 902-7657</a></li>
+      <li><a href="https://www.linkedin.com/in/boyusu">LinkedIn</a></li>
+    </ul>
+    <p class="resume-download">
+      <a href="/resume.pdf" download>Download resume (PDF)</a>
+      <span>127 KB</span>
+    </p>
+
+    <section
+      class="content-section resume-section"
+      aria-labelledby="experience-heading"
+    >
+      <h2 id="experience-heading">Experience</h2>
+
+      <section class="resume-entry" aria-labelledby="newsbreak-role">
+        <header>
+          <div>
+            <h3 id="newsbreak-role">Software Engineer</h3>
+            <p>NewsBreak · Mountain View, CA</p>
+          </div>
+          <p><time datetime="2025-07">Jul 2025</time> – Present</p>
+        </header>
+        <ul>
+          <li>
+            Built a self-service ClickHouse-backed ad-index snapshot explorer
+            with a streaming Java pipeline and ClickPipes S3 ingestion, reducing
+            query latency from 40 seconds to 300 milliseconds, eliminating JVM
+            out-of-memory failures, and removing an SRE dependency.
+          </li>
+          <li>
+            Instrumented a nine-stage ad-index pipeline with Protobuf, Kafka,
+            and Schema Registry filter logs, enabling self-service analysis of
+            why approximately 97% of ad sets are filtered.
+          </li>
+          <li>
+            Re-architected a Kotlin, S3, MySQL, and MongoDB media-processing
+            pipeline with Grafana monitoring, improving latency by 90% and
+            scaling to more than 2,500 daily tasks while reliably serving
+            176,000 existing GIF ads.
+          </li>
+          <li>
+            Automated a NetSuite billing workflow, reducing daily data-entry
+            time from eight hours to ten minutes and allowing the accounting
+            team to focus on higher-value analysis.
+          </li>
+        </ul>
+      </section>
+
+      <section class="resume-entry" aria-labelledby="otso-role">
+        <header>
+          <div>
+            <h3 id="otso-role">Software Engineer</h3>
+            <p>OTSO Fintech · Taipei, Taiwan</p>
+          </div>
+          <p>
+            <time datetime="2022-08">Aug 2022</time> –
+            <time datetime="2023-02">Feb 2023</time>
+          </p>
+        </header>
+        <ul>
+          <li>
+            Developed five Go and Gin microservices for a social-trading
+            platform with two billion in trading volume, using Azure, Docker,
+            Kubernetes, gRPC, PostgreSQL, and Drone CI/CD.
+          </li>
+          <li>
+            Refactored a trading-performance calculation system with incremental
+            computation and Redis caching, improving response time across 13
+            REST APIs serving 5,000 trading signals.
+          </li>
+          <li>
+            Led development of a Python and React trading-bot deployment service
+            in collaboration with a five-person engineering, product, and design
+            team.
+          </li>
+          <li>
+            Engineered a Flask backend for quote buffering, trading-bot
+            management, and order execution across three broker exchanges using
+            WebSockets, REST APIs, and multithreading.
+          </li>
+          <li>
+            Designed seven quantitative trading bots using TA-Lib technical
+            indicators and machine-learning models including XGBoost and
+            LightGBM.
+          </li>
+        </ul>
+      </section>
+
+      <section class="resume-entry" aria-labelledby="quantx-role">
+        <header>
+          <div>
+            <h3 id="quantx-role">Co-Founder and Lead Developer</h3>
+            <p>QuantX · Remote</p>
+          </div>
+          <p>
+            <time datetime="2021-07">Jul 2021</time> –
+            <time datetime="2024-12">Dec 2024</time>
+          </p>
+        </header>
+        <ul>
+          <li>
+            Founded an algorithmic-trading startup with monthly trading volume
+            of $800,000 across 2,320 equities.
+          </li>
+          <li>
+            Architected an investment-management service handling more than one
+            million transactions with Python, FastAPI, REST APIs, JWT, and OAuth
+            2.0; built the dashboard with Figma, React, TypeScript, MUI, and
+            Next.js.
+          </li>
+          <li>
+            Constructed a Docker and GitLab CI/CD deployment pipeline on GCP,
+            reducing deployment time by more than 90% across Compute Engine,
+            Cloud Storage, and Cloud SQL.
+          </li>
+          <li>
+            Built a distributed Apache Airflow, RabbitMQ, and Celery pipeline
+            that processed more than 60 million financial records into MySQL,
+            along with an automated trading program integrating multiple broker
+            APIs.
+          </li>
+        </ul>
+      </section>
+
+      <section class="resume-entry" aria-labelledby="trend-ai-role">
+        <header>
+          <div>
+            <h3 id="trend-ai-role">Software Development Intern</h3>
+            <p>Trend AI · Taipei, Taiwan</p>
+          </div>
+          <p>
+            <time datetime="2024-07">Jul 2024</time> –
+            <time datetime="2024-08">Aug 2024</time>
+          </p>
+        </header>
+        <ul>
+          <li>
+            Engineered an LLM-based vulnerability-prioritization workflow using
+            LangChain, GPT-4o, Azure, and Selenium, improving rules creation by
+            70% and deploying two threat-detection rules across 2.25 million
+            customer edge devices.
+          </li>
+          <li>
+            Developed an AI pull-request review system using GPT-4o, Llama 3
+            70B, PR-Agent, and GitHub Actions, improving code quality, security,
+            and review efficiency by 75%.
+          </li>
+        </ul>
+      </section>
+    </section>
+
+    <section
+      class="content-section resume-section"
+      aria-labelledby="education-heading"
+    >
+      <h2 id="education-heading">Education</h2>
+      <div class="resume-education">
+        <div>
+          <h3>University of Illinois Urbana-Champaign</h3>
+          <p>Master of Computer Science · GPA: 3.9/4.0</p>
+        </div>
+        <p>
+          <time datetime="2024-01">Jan 2024</time> –
+          <time datetime="2025-05">May 2025</time>
+        </p>
+      </div>
+      <div class="resume-education">
+        <div>
+          <h3>National Yang Ming Chiao Tung University</h3>
+          <p>
+            B.S. in Computer Science · Cross-Disciplinary Specialty in Financial
+            Technology · GPA: 3.9/4.3
+          </p>
+        </div>
+        <p>
+          <time datetime="2018-09">Sep 2018</time> –
+          <time datetime="2022-06">Jun 2022</time>
+        </p>
+      </div>
+    </section>
+
+    <section
+      class="content-section resume-section"
+      aria-labelledby="skills-heading"
+    >
+      <h2 id="skills-heading">Skills</h2>
+      <dl class="resume-skills">
+        <div>
+          <dt>Languages</dt>
+          <dd>
+            Java, Go, JavaScript, TypeScript, Kotlin, Python, C/C++, PHP, SQL,
+            HTML/CSS, Lua
+          </dd>
+        </div>
+        <div>
+          <dt>Frameworks & data</dt>
+          <dd>
+            React, MySQL, PostgreSQL, MongoDB, Kafka, ClickHouse, Flask, Django,
+            Gin, Next.js, Chart.js, Tailwind CSS, PyTorch, SQLite, Neo4j, Redis,
+            Apache Airflow, RabbitMQ, Celery
+          </dd>
+        </div>
+        <div>
+          <dt>Platforms & tools</dt>
+          <dd>
+            Claude Code, Codex, Grafana, Prometheus, Protobuf, Git, Kubernetes,
+            Docker, Jenkins, Jira, Postman, Azure, GCP, AWS, Heroku, Figma,
+            Selenium
+          </dd>
+        </div>
+      </dl>
+    </section>
+  </article>
+</BaseLayout>

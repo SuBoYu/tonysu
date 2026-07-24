@@ -1,0 +1,22 @@
+---
+import { SITE } from "../config";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div>
+      <p class="footer-name">{SITE.author}</p>
+      <p>Built with Astro. © {year}</p>
+    </div>
+    <nav aria-label="Social links">
+      <ul class="footer-links">
+        <li><a href="/rss.xml">RSS</a></li>
+        <li><a href={SITE.github}>GitHub</a></li>
+        <li><a href={SITE.linkedin}>LinkedIn</a></li>
+        <li><a href={`mailto:${SITE.email}`}>Email</a></li>
+      </ul>
+    </nav>
+  </div>
+</footer>

@@ -1,0 +1,32 @@
+---
+import { SITE } from "../config";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Contact"
+  description="Get in touch with Tony Su by email, GitHub, or LinkedIn."
+>
+  <div class="page">
+    <p class="eyebrow">Contact</p>
+    <h1>Let’s talk.</h1>
+    <p class="lede">
+      The best way to reach me is by email. You can also find my work and
+      updates on GitHub and LinkedIn.
+    </p>
+    <ul class="contact-list plain-list">
+      <li>
+        <span>Email</span>
+        <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+      </li>
+      <li>
+        <span>GitHub</span>
+        <a href={SITE.github}>GitHub profile</a>
+      </li>
+      <li>
+        <span>LinkedIn</span>
+        <a href={SITE.linkedin}>LinkedIn profile</a>
+      </li>
+    </ul>
+  </div>
+</BaseLayout>

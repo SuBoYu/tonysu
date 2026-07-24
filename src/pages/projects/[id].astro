@@ -1,0 +1,90 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { formatDate } from "../../utils/formatDate";
+import { getProjects } from "../../utils/content";
+
+export async function getStaticPaths() {
+  const projects = await getProjects();
+
+  return projects.map((project) => ({
+    params: { id: project.id },
+    props: { project },
+  }));
+}
+
+interface Props {
+  project: CollectionEntry<"projects">;
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const status = project.data.status
+  ? project.data.status[0].toUpperCase() + project.data.status.slice(1)
+  : undefined;
+---
+
+<BaseLayout
+  title={project.data.title}
+  description={project.data.description}
+  type="article"
+  publishedAt={project.data.publishedAt}
+  tags={project.data.technologies}
+>
+  <article class="page article project-detail">
+    <header class="article-header">
+      <a class="back-link" href="/projects">← Back to projects</a>
+      <h1>{project.data.title}</h1>
+      <p class="lede">{project.data.description}</p>
+      <dl class="project-meta">
+        {
+          status && (
+            <div>
+              <dt>Status</dt>
+              <dd>{status}</dd>
+            </div>
+          )
+        }
+        {
+          project.data.publishedAt && (
+            <div>
+              <dt>Published</dt>
+              <dd>
+                <time datetime={project.data.publishedAt.toISOString()}>
+                  {formatDate(project.data.publishedAt)}
+                </time>
+              </dd>
+            </div>
+          )
+        }
+        {
+          project.data.technologies.length > 0 && (
+            <div>
+              <dt>Technologies</dt>
+              <dd>{project.data.technologies.join(", ")}</dd>
+            </div>
+          )
+        }
+      </dl>
+      {
+        (project.data.externalUrl || project.data.repositoryUrl) && (
+          <ul class="inline-links project-links">
+            {project.data.externalUrl && (
+              <li>
+                <a href={project.data.externalUrl}>Visit project</a>
+              </li>
+            )}
+            {project.data.repositoryUrl && (
+              <li>
+                <a href={project.data.repositoryUrl}>View repository</a>
+              </li>
+            )}
+          </ul>
+        )
+      }
+    </header>
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

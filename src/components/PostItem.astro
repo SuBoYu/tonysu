@@ -1,0 +1,24 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { formatDate } from "../utils/formatDate";
+
+interface Props {
+  post: CollectionEntry<"writing">;
+  showDraft?: boolean;
+}
+
+const { post, showDraft = false } = Astro.props;
+---
+
+<li>
+  <div>
+    <h3><a href={`/writing/${post.id}`}>{post.data.title}</a></h3>
+    <p>{post.data.description}</p>
+  </div>
+  <div class="entry-aside">
+    <time datetime={post.data.publishedAt.toISOString()}>
+      {formatDate(post.data.publishedAt)}
+    </time>
+    {showDraft && post.data.draft && <span class="draft-label">Draft</span>}
+  </div>
+</li>
