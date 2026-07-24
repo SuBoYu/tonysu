@@ -60,6 +60,66 @@ corepack pnpm lint
 corepack pnpm build
 ```
 
+## Running and maintaining the website
+
+### Run it locally
+
+From the repository root:
+
+```bash
+corepack pnpm install
+corepack pnpm dev
+```
+
+Visit [http://localhost:4321](http://localhost:4321). The development server
+automatically refreshes the browser when source or content files change.
+
+To test the production version locally:
+
+```bash
+corepack pnpm build
+corepack pnpm preview
+```
+
+### Publish an update
+
+Use this workflow whenever you change content or code:
+
+```bash
+git switch main
+git pull
+git switch -c feature/describe-your-change
+
+# Edit and preview the website, then validate it:
+corepack pnpm format
+corepack pnpm check
+corepack pnpm lint
+corepack pnpm build
+
+git add .
+git commit -m "Describe the update"
+git push -u origin feature/describe-your-change
+```
+
+Open a pull request on GitHub and merge it into `main`. Cloudflare Pages
+automatically builds and deploys every merge to `main`; no manual upload is
+needed. Check the deployment under **Cloudflare → Workers & Pages → tonysu →
+Deployments**.
+
+### Routine updates
+
+- Add articles in `src/content/writing/`. Start with `draft: true`, preview the
+  post locally, and change it to `draft: false` when it is ready to publish.
+- Add or revise projects in `src/content/projects/`.
+- Update `src/pages/now.astro` when current interests or activities change.
+- Replace `public/resume.pdf` and update `src/pages/resume.astro` when the
+  resume changes.
+- Check Google Search Console occasionally for indexing or sitemap issues.
+- Review Cloudflare after each merge to confirm that the production deployment
+  succeeded.
+- Update dependencies every few months and rerun the complete validation
+  commands.
+
 ## Project structure
 
 ```text
@@ -121,8 +181,7 @@ Update `src/config.ts` with:
 - LinkedIn profile
 
 The site URL is used for canonical links, structured metadata, RSS links,
-`robots.txt`, and the sitemap. Replace `https://example.pages.dev` before the
-production deployment.
+`robots.txt`, and the sitemap.
 
 Personal content can be edited in:
 
@@ -192,5 +251,5 @@ Milestones 1–4 are implemented:
 - Completed Now page
 - Responsive and accessibility polish
 
-Before launch, replace the placeholder profile values with the production
-details.
+The production site is deployed at
+[https://tonysu.pages.dev](https://tonysu.pages.dev).
