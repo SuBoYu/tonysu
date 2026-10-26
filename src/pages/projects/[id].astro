@@ -1,7 +1,6 @@
 ---
 import { render, type CollectionEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { formatDate } from "../../utils/formatDate";
 import { getProjects } from "../../utils/content";
 
 export async function getStaticPaths() {
@@ -19,9 +18,6 @@ interface Props {
 
 const { project } = Astro.props;
 const { Content } = await render(project);
-const status = project.data.status
-  ? project.data.status[0].toUpperCase() + project.data.status.slice(1)
-  : undefined;
 ---
 
 <BaseLayout
@@ -36,36 +32,6 @@ const status = project.data.status
       <a class="back-link" href="/projects">← Back to projects</a>
       <h1>{project.data.title}</h1>
       <p class="lede">{project.data.description}</p>
-      <dl class="project-meta">
-        {
-          status && (
-            <div>
-              <dt>Status</dt>
-              <dd>{status}</dd>
-            </div>
-          )
-        }
-        {
-          project.data.publishedAt && (
-            <div>
-              <dt>Published</dt>
-              <dd>
-                <time datetime={project.data.publishedAt.toISOString()}>
-                  {formatDate(project.data.publishedAt)}
-                </time>
-              </dd>
-            </div>
-          )
-        }
-        {
-          project.data.technologies.length > 0 && (
-            <div>
-              <dt>Technologies</dt>
-              <dd>{project.data.technologies.join(", ")}</dd>
-            </div>
-          )
-        }
-      </dl>
       {
         (project.data.externalUrl || project.data.repositoryUrl) && (
           <ul class="inline-links project-links">

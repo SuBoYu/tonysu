@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
   --background: #ffffff;
   --surface: #f7f7f5;
   --text: #111111;
@@ -10,37 +10,6 @@
   --accent: #111111;
   --page-width: 48rem;
   --reading-width: 42.5rem;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #090909;
-    --surface: #141414;
-    --text: #fafafa;
-    --muted: #999999;
-    --border: #262626;
-    --accent: #fafafa;
-  }
-}
-
-:root[data-theme="light"] {
-  color-scheme: light;
-  --background: #ffffff;
-  --surface: #f7f7f5;
-  --text: #111111;
-  --muted: #666666;
-  --border: #e5e5e5;
-  --accent: #111111;
-}
-
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --background: #090909;
-  --surface: #141414;
-  --text: #fafafa;
-  --muted: #999999;
-  --border: #262626;
-  --accent: #fafafa;
 }
 
 * {
@@ -121,6 +90,129 @@ a:hover {
   margin-inline: auto;
 }
 
+.page-shell--landing {
+  position: relative;
+  max-width: 70rem;
+  min-height: 100svh;
+  padding-block: 0;
+}
+
+.landing {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  padding-block: clamp(2rem, 5vh, 4rem);
+}
+
+.landing-location {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.025em;
+}
+
+.landing-location > span {
+  margin-right: 0.5rem;
+}
+
+.landing-intro {
+  padding-top: clamp(4rem, 12vh, 9rem);
+}
+
+.landing-intro h1 {
+  max-width: none;
+  margin: 0 0 1.75rem -0.065em;
+  font-size: clamp(5rem, 16vw, 11.5rem);
+  font-weight: 550;
+  letter-spacing: -0.085em;
+  line-height: 0.95;
+}
+
+.landing-intro h1 > span {
+  color: var(--muted);
+}
+
+.landing-description {
+  margin-bottom: 1rem;
+  font-size: clamp(1.25rem, 3vw, 1.8rem);
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+}
+
+.landing-caption {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+
+.landing-links {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+  margin-top: clamp(3.5rem, 9vh, 7rem);
+}
+
+.landing-links a {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding-block: 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+
+.landing-links a > span:first-child {
+  color: var(--muted);
+  font-size: 0.65rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.landing-links a > span:last-child {
+  margin-left: auto;
+}
+
+.landing-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-top: auto;
+  padding-top: 4rem;
+  font-size: 0.75rem;
+}
+
+.landing-footer a {
+  text-decoration: none;
+}
+
+.landing-footer > div {
+  display: flex;
+  gap: 1.5rem;
+  color: var(--muted);
+}
+
+@media (max-width: 42rem) {
+  .page-shell.page-shell--landing {
+    padding-top: 0;
+  }
+
+  .landing-links {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .landing-intro {
+    padding-top: 5rem;
+  }
+
+  .landing-footer {
+    padding-top: 3rem;
+  }
+}
+
 .site-header {
   padding-block: 1.75rem;
 }
@@ -144,6 +236,18 @@ a:hover {
   font-weight: 650;
   letter-spacing: -0.02em;
   text-decoration: none;
+}
+
+.header-home {
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-decoration: none;
+}
+
+.experience-summary {
+  margin: 1rem 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
 }
 
 .nav-list,
@@ -180,30 +284,6 @@ a:hover {
 
 .nav-list a[aria-current="page"] {
   text-decoration: underline;
-}
-
-.theme-toggle {
-  display: none;
-  min-height: 2.25rem;
-  padding: 0.25rem 0.55rem;
-  border: 1px solid var(--border);
-  border-radius: 0;
-  background: transparent;
-  color: var(--muted);
-  font: inherit;
-  font-size: 0.75rem;
-  cursor: pointer;
-}
-
-.theme-ready .theme-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-}
-
-.theme-toggle:hover {
-  border-color: var(--muted);
-  color: var(--text);
 }
 
 .page-shell {
@@ -292,6 +372,28 @@ h3 {
 
 .body-copy p {
   margin-bottom: 1.4rem;
+}
+
+.translation {
+  margin-top: 3rem;
+  padding-block: 1.25rem;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.translation summary {
+  width: fit-content;
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.translation[open] summary {
+  margin-bottom: 1.5rem;
+}
+
+.translation p:last-child {
+  margin-bottom: 0;
 }
 
 .body-copy strong {

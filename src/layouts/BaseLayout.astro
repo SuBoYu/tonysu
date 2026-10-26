@@ -6,6 +6,7 @@ import { SITE } from "../config";
 import "../styles/global.css";
 
 interface Props {
+  landing?: boolean;
   title?: string;
   description?: string;
   type?: "website" | "article";
@@ -15,6 +16,7 @@ interface Props {
 }
 
 const {
+  landing = false,
   title,
   description = SITE.description,
   type = "website",
@@ -30,45 +32,19 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <meta
-      name="theme-color"
-      content="#ffffff"
-      media="(prefers-color-scheme: light)"
-    />
-    <meta
-      name="theme-color"
-      content="#090909"
-      media="(prefers-color-scheme: dark)"
-    />
+    <meta name="theme-color" content="#ffffff" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <SeoHead {title} {description} {type} {publishedAt} {updatedAt} {tags} />
-    <script is:inline>
-      (() => {
-        const storageKey = "theme-preference";
-        const storedPreference = localStorage.getItem(storageKey);
-        const preference =
-          storedPreference === "light" || storedPreference === "dark"
-            ? storedPreference
-            : "system";
-        const theme =
-          preference === "system"
-            ? window.matchMedia("(prefers-color-scheme: dark)").matches
-              ? "dark"
-              : "light"
-            : preference;
-
-        document.documentElement.dataset.themePreference = preference;
-        document.documentElement.dataset.theme = theme;
-        document.documentElement.classList.add("theme-ready");
-      })();
-    </script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <Header />
-    <main id="main-content" class="page-shell">
+    {Astro.url.pathname !== "/" && <Header />}
+    <main
+      id="main-content"
+      class:list={["page-shell", { "page-shell--landing": landing }]}
+    >
       <slot />
     </main>
-    <Footer />
+    {!landing && <Footer />}
   </body>
 </html>

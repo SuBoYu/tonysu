@@ -1,21 +1,17 @@
 ---
 import { SITE } from "../config";
-
-const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
   <div class="site-footer__inner">
-    <div>
-      <p class="footer-name">{SITE.author}</p>
-      <p>Built with Astro. © {year}</p>
-    </div>
-    <nav aria-label="Social links">
+    <a href={`mailto:${SITE.email}`}>Say hello ↗</a>
+    <nav aria-label="Explore">
       <ul class="footer-links">
-        <li><a href="/rss.xml">RSS</a></li>
-        <li><a href={SITE.github}>GitHub</a></li>
-        <li><a href={SITE.linkedin}>LinkedIn</a></li>
-        <li><a href={`mailto:${SITE.email}`}>Email</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/projects">Work</a></li>
+        <li><a href="/writing">Writing</a></li>
+        <li><a href="/now">Now</a></li>
+        <li><a href="/resume">Resume</a></li>
       </ul>
     </nav>
   </div>
