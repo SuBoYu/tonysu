@@ -11,42 +11,10 @@ technologies:
   - Query analysis
 ---
 
-## Overview
+An exploration of how table layout and indexes affect ClickHouse queries.
 
-An exploratory tool that makes ClickHouse table structure and query behavior
-easier to inspect without requiring every user to understand the storage engine
-in depth.
+The tool brings table metadata and query behavior together to help turn a slow
+query into a testable hypothesis. Analysis is read-only; any tuning decision
+stays with the operator.
 
-## Problem
-
-Query performance depends heavily on sort order, partitioning, data
-distribution, and skipping indexes. Those relationships are easy to miss when
-the available information is split across system tables and query plans.
-
-## Approach
-
-The explorer organizes relevant metadata around practical questions: how data
-is laid out, which parts a query reads, and where an index can or cannot reduce
-work.
-
-## Architecture
-
-A small read-only analysis layer gathers public ClickHouse metadata and
-normalizes it into table, part, and query views. The interface emphasizes
-explanation over automatic tuning.
-
-## Implementation
-
-The initial scope focuses on deterministic metadata queries and concise
-interpretations. Potential recommendations include their assumptions so users
-can verify them against their workload.
-
-## Impact
-
-The project aims to shorten the path from a slow query to a testable hypothesis
-while keeping all database changes under the operator's control.
-
-## Lessons Learned
-
-Database tooling is most trustworthy when it exposes evidence and uncertainty.
-A clear explanation is more durable than a one-click optimization.
+The focus is explaining the evidence behind a recommendation.

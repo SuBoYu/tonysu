@@ -2,55 +2,39 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { formatDate } from "../utils/formatDate";
 
-const updatedAt = new Date("2026-07-23T00:00:00Z");
+const updatedAt = new Date("2026-10-25T00:00:00Z");
 ---
 
-<BaseLayout
-  title="Now"
-  description="What Tony Su is building, learning, playing, and thinking about now."
->
+<BaseLayout title="Now" description="What Tony Su is focused on now.">
   <article class="page">
     <p class="eyebrow">Now</p>
-    <h1>What I’m doing now.</h1>
-    <p class="lede">
-      A snapshot of the projects, questions, and activities holding my attention
-      right now.
-    </p>
+    <h1>A few things lately.</h1>
     <p class="updated-date">
-      Last updated <time datetime={updatedAt.toISOString()}>
-        {formatDate(updatedAt)}
-      </time>
+      Updated <time datetime={updatedAt.toISOString()}
+        >{formatDate(updatedAt)}</time>
     </p>
-
-    <div class="now-grid">
-      <section aria-labelledby="building-heading">
-        <h2 id="building-heading">Building</h2>
-        <ul class="plain-list">
-          <li>Personal website</li>
-          <li>Small AI experiments</li>
-        </ul>
-      </section>
-      <section aria-labelledby="learning-heading">
-        <h2 id="learning-heading">Learning</h2>
-        <ul class="plain-list">
-          <li>AI agents</li>
-          <li>Distributed systems</li>
-        </ul>
-      </section>
-      <section aria-labelledby="playing-heading">
-        <h2 id="playing-heading">Playing</h2>
-        <ul class="plain-list">
-          <li>Drums</li>
-          <li>Tennis</li>
-        </ul>
-      </section>
-      <section aria-labelledby="thinking-heading">
-        <h2 id="thinking-heading">Thinking about</h2>
-        <ul class="plain-list">
-          <li>Startup ideas</li>
-          <li>Personal knowledge systems</li>
-        </ul>
-      </section>
+    <div class="content-section body-copy">
+      <p>
+        Working in Ad Tech and exploring an AI social discovery product outside
+        work.
+      </p>
+      <p>
+        Preparing a new <a href="/about#podcast">podcast with Nash</a>. Name and
+        launch date to come.
+      </p>
+      <p>
+        Making time for drums, tennis, and meeting curious people around the Bay
+        Area.
+      </p>
     </div>
+    <details class="translation" lang="zh-Hant">
+      <summary>中文近況</summary>
+      <div class="body-copy">
+        <p>
+          在廣告科技領域工作，下班後探索 AI social discovery 產品，也和 Nash
+          籌備新 Podcast。生活裡繼續打鼓、打網球，認識灣區有趣的人。
+        </p>
+      </div>
+    </details>
   </article>
 </BaseLayout>

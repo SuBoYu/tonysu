@@ -125,12 +125,12 @@ Deployments**.
 ```text
 public/                 Static assets
 src/
-├── components/         Shared UI, metadata, and theme controls
+├── components/         Shared UI and metadata
 ├── content/            Markdown writing and project entries
 ├── content.config.ts   Content collection schemas and loaders
 ├── layouts/            Reusable page layouts
 ├── pages/              Pages, feeds, and discovery endpoints
-├── styles/             Global typography and theme styles
+├── styles/             Global typography and colors
 ├── utils/              Content, date, and reading-time helpers
 └── config.ts           Site metadata and contact links
 ```
@@ -194,8 +194,7 @@ The downloadable resume is served from `public/resume.pdf`. Replace that file
 with a newer version while keeping the same filename to update the download.
 
 Global colors, typography, spacing, and responsive styles live in
-`src/styles/global.css`. The theme control follows the system preference by
-default and stores manual light or dark choices in local storage.
+`src/styles/global.css`. All pages use a fixed white background and dark text.
 
 ## Production build
 
@@ -246,7 +245,7 @@ Milestones 1–4 are implemented:
 - Initial sample content
 - Canonical, Open Graph, Twitter, and structured metadata
 - Sitemap, RSS, robots, favicon, and custom 404 page
-- System-aware light and dark themes with a persisted manual preference
+- Consistent light appearance across all pages
 - Reading times and article navigation
 - Completed Now page
 - Responsive and accessibility polish

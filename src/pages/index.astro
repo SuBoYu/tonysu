@@ -1,51 +1,39 @@
 ---
-import PostItem from "../components/PostItem.astro";
-import ProjectItem from "../components/ProjectItem.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getProjects, getWritingPosts } from "../utils/content";
-
-const latestPosts = (await getWritingPosts()).slice(0, 3);
-const featuredProjects = (await getProjects())
-  .filter((project) => project.data.featured)
-  .slice(0, 3);
+import PixelField from "../components/PixelField.astro";
+import { SITE } from "../config";
 ---
 
-<BaseLayout>
-  <div class="page page--wide">
-    <section aria-labelledby="intro-heading">
-      <p class="eyebrow">Software Engineer · Silicon Valley</p>
-      <h1 id="intro-heading">Building useful systems and ideas.</h1>
-      <p class="lede">
-        I’m Tony. I build software, explore AI, and document the journey.
+<BaseLayout landing>
+  <div class="landing">
+    <p class="landing-location">
+      <span aria-hidden="true">↗</span> Based in the Bay Area
+    </p>
+    <section class="landing-intro" aria-labelledby="intro-heading">
+      <h1 id="intro-heading">Tony Su<span aria-hidden="true">.</span></h1>
+      <p class="landing-description">
+        Building things.<br />Following curiosity.
       </p>
-      <nav aria-label="Explore the site">
-        <ul class="inline-links">
-          <li><a href="/about">About</a></li>
-          <li><a href="/projects">Projects</a></li>
-          <li><a href="/writing">Writing</a></li>
-          <li><a href="/resume">Resume</a></li>
-        </ul>
-      </nav>
     </section>
-
-    <section class="home-section" aria-labelledby="writing-heading">
-      <div class="section-heading">
-        <h2 id="writing-heading">Latest writing</h2>
-        <a href="/writing">View all</a>
+    <PixelField />
+    <nav class="landing-links" aria-label="Explore">
+      <a href="/about"
+        ><span>01</span> The person <span aria-hidden="true">↗</span></a
+      >
+      <a href="/projects"
+        ><span>02</span> The work <span aria-hidden="true">↗</span></a
+      >
+      <a href="/about#podcast"
+        ><span>03</span> The conversations <span aria-hidden="true">↗</span></a
+      >
+    </nav>
+    <footer class="landing-footer">
+      <a href={`mailto:${SITE.email}`}>Say hello ↗</a>
+      <div>
+        <a href="/writing">Writing</a>
+        <a href="https://www.threads.com/@tonysu05">Threads</a>
+        <a href={SITE.linkedin}>LinkedIn</a>
       </div>
-      <ol class="entry-list">
-        {latestPosts.map((post) => <PostItem post={post} />)}
-      </ol>
-    </section>
-
-    <section class="home-section" aria-labelledby="projects-heading">
-      <div class="section-heading">
-        <h2 id="projects-heading">Selected projects</h2>
-        <a href="/projects">View all</a>
-      </div>
-      <ul class="entry-list">
-        {featuredProjects.map((project) => <ProjectItem project={project} />)}
-      </ul>
-    </section>
+    </footer>
   </div>
 </BaseLayout>

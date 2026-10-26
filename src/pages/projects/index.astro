@@ -11,12 +11,7 @@ const projects = await getProjects();
   description="Selected software and infrastructure projects by Tony Su."
 >
   <div class="page">
-    <p class="eyebrow">Projects</p>
     <h1>Selected work.</h1>
-    <p class="lede">
-      Systems, tools, and experiments documented through the problem, approach,
-      impact, and lessons learned.
-    </p>
     <ul class="entry-list project-list">
       {projects.map((project) => <ProjectItem project={project} />)}
     </ul>

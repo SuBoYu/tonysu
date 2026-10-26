@@ -1,0 +1,160 @@
+---
+let seed = 271828;
+const random = () => {
+  seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+  return (seed + 1) / 4294967297;
+};
+// Exact GBM increments: S(t+dt) = S(t) exp((mu-sigma²/2)dt + sigma sqrt(dt)Z).
+const paths = Array.from({ length: 7 }, () => {
+  let price = 1;
+  return Array.from({ length: 81 }, (_, index) => {
+    if (index > 0) {
+      const z =
+        Math.sqrt(-2 * Math.log(random())) * Math.cos(2 * Math.PI * random());
+      price *= Math.exp(
+        (0.06 - 0.22 ** 2 / 2) / 80 + 0.22 * Math.sqrt(1 / 80) * z,
+      );
+    }
+    return { x: 18 + index * 3, price };
+  });
+});
+const values = paths.flatMap((path) => path.map((point) => point.price));
+const low = Math.min(...values) - 0.06;
+const high = Math.max(...values) + 0.06;
+const y = (price: number) => 154 - ((price - low) / (high - low)) * 130;
+const lines = paths.map((path) =>
+  path.map((point) => `${point.x},${y(point.price).toFixed(2)}`).join(" "),
+);
+---
+
+<figure
+  class="quant-study"
+  aria-label="Geometric Brownian motion: seven simulated price paths with drift mu and volatility sigma."
+>
+  <figcaption>STUDY 01 <span>—</span> STOCHASTIC PATHS</figcaption>
+  <svg viewBox="0 0 280 180" fill="none" aria-hidden="true">
+    <path d="M18 12V155H262" stroke="#e3e6e3" stroke-width="0.7"></path>
+    <path
+      d={`M18 ${y(1)}H262`}
+      stroke="#d9dfdb"
+      stroke-dasharray="2 5"
+      stroke-width="0.7"></path>
+    {
+      lines.map((points, index) => (
+        <polyline
+          points={points}
+          stroke={index === 3 ? "#547866" : "#bcc7c0"}
+          stroke-width={index === 3 ? "1.5" : "0.8"}
+          pathLength="1"
+          class:list={["price-path", { "price-path--focus": index === 3 }]}
+          style={`--delay: ${index * 0.18}s`}
+        />
+      ))
+    }
+    <text x="6" y="12">S</text>
+    <text x="264" y="169">t</text>
+  </svg>
+  <p class="equation" aria-label="d S t equals mu S t d t plus sigma S t d W t">
+    dS<sub>t</sub> = μS<sub>t</sub>dt + σS<sub>t</sub>dW<sub>t</sub>
+  </p>
+  <p class="study-note">Geometric Brownian motion</p>
+</figure>
+
+<style>
+  .quant-study {
+    position: absolute;
+    right: 0;
+    top: clamp(10rem, 23vh, 15rem);
+    width: clamp(13rem, 25vw, 18rem);
+    margin: 0;
+    pointer-events: none;
+  }
+  figcaption {
+    color: #767e78;
+    font:
+      0.53rem ui-monospace,
+      monospace;
+    letter-spacing: 0.09em;
+  }
+  figcaption span {
+    margin-inline: 0.35rem;
+    color: #bcc7c0;
+  }
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-top: 1rem;
+    overflow: visible;
+  }
+  svg text {
+    fill: #89918b;
+    font:
+      italic 9px Georgia,
+      serif;
+  }
+  .price-path {
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+  .price-path--focus {
+    stroke-dasharray: 1;
+    animation: trace 12s ease-in-out infinite;
+  }
+  .equation {
+    margin: 0.7rem 0 0;
+    text-align: center;
+    color: #4d5e53;
+    font:
+      italic 1rem Georgia,
+      "Times New Roman",
+      serif;
+    letter-spacing: 0.01em;
+  }
+  sub {
+    font-size: 0.65em;
+  }
+  .study-note {
+    margin: 0.7rem 0 0;
+    text-align: center;
+    color: #89918b;
+    font:
+      0.58rem ui-monospace,
+      monospace;
+  }
+  @keyframes trace {
+    0%,
+    8% {
+      stroke-dashoffset: 1;
+      opacity: 0;
+    }
+    12% {
+      opacity: 1;
+    }
+    55%,
+    85% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+    100% {
+      stroke-dashoffset: 0;
+      opacity: 0;
+    }
+  }
+  @media (max-width: 48rem) {
+    .quant-study {
+      position: relative;
+      top: auto;
+      right: auto;
+      align-self: flex-end;
+      width: 12rem;
+      margin-top: 2.5rem;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .price-path--focus {
+      animation: none;
+      stroke-dashoffset: 0;
+    }
+  }
+</style>
